@@ -1,10 +1,11 @@
 import socket, string
-from Init import init, joinRoom, sendMessage
+from Init import init, joinRoom, sendMessage, getSRCId
 from Commands import executeCommand
 
 def run():
 	openSocket = init()
 	joinRoom(openSocket)
+	getSRCId()
 	readbuffer = ""
 
 	while True:

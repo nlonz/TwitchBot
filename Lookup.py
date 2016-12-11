@@ -1,9 +1,10 @@
 import json
 import urllib2
+import Config
 from Dicts import categories
 from Enum import Month
 	
-pbUrl = "http://www.speedrun.com/api/v1/users/5j52egjv/personal-bests"
+pbUrl = "http://www.speedrun.com/api/v1/users/" + Config.SRCID + "/personal-bests"
 personalBests = json.loads(urllib2.urlopen(pbUrl).read().decode("utf-8")).get("data")
 recordBaseUrl = "http://www.speedrun.com/api/v1/categories/"
 
@@ -12,7 +13,7 @@ def fetchWRs():
 	for category in categories:
 		categoryCode = categories.get(category, "Not found")
 		if ("Not found" == categoryCode):	
-			return "The world record for this category is not posted on speedrun.com, or I don't know this category."
+			return "The world record for this category is not posted on speedrun.com, or I don't know about this category."
 		else:
 			recordUrl = recordBaseUrl + categoryCode + "/records"
 			run = json.loads(urllib2.urlopen(recordUrl).read().decode("utf-8")).get("data")[0].get("runs")[0].get("run")

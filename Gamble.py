@@ -1,6 +1,6 @@
 import pickle, random
 
-pointName = "memes"
+pointName = "dragonflies"
 
 def retrievePointTotals():
 	file = open(r'D:\Dev\EmoArbot\pointTotals.pk1', 'rb')
@@ -28,15 +28,15 @@ def gamble(user, message):
 		
 		if (roll < 63):
 			points -= amount
-			result = user + " rolled a " + str(roll) + " and lost " + str(amount) + " " + pointName + "." + user + " now has " + str(points) + " " + pointName + "."
+			result = user + " rolled a " + str(roll) + " and lost " + str(amount) + " " + pointName + ". " + user + " now has " + str(points) + " " + pointName + "."
 			
 		elif (roll >= 63 and roll < 99):
 			points += amount
-			result = user + " rolled a " + str(roll) + " and won " + str(amount) + " " + pointName + "." + user + " now has " + str(points) + " " + pointName + "."
+			result = user + " rolled a " + str(roll) + " and won " + str(amount) + " " + pointName + ". " + user + " now has " + str(points) + " " + pointName + "."
 		
 		elif (roll == 99 or roll == 100):
 			points += (2*amount)
-			result = user + " rolled a " + str(roll) + " and won " + str(amount) + " " + pointName + "." + user + " now has " + str(points) + " " + pointName + "."
+			result = user + " rolled a " + str(roll) + " and won " + str(amount) + " " + pointName + ". " + user + " now has " + str(points) + " " + pointName + "."
 			
 		else:
 			return "Random broke lul"
