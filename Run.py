@@ -1,11 +1,10 @@
 import socket, string
-from Init import init, joinRoom, sendMessage, getSRCId
+from Init import init, joinRoom, sendMessage
 from Commands import executeCommand
 
 def run():
 	openSocket = init()
 	joinRoom(openSocket)
-	getSRCId()
 	readbuffer = ""
 
 	while True:
@@ -21,7 +20,6 @@ def run():
 			else:
 				result = executeCommand(line)
 				if "No message" != result:
-					print result
 					sendMessage(openSocket, result)
 					
 run()					

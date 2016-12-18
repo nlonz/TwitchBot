@@ -27,13 +27,6 @@ def joinRoom(s):
 			Loading = isLoadingComplete(line)
 	print("Successfully joined chat")
 	
-def getSRCId(): 
-	url = "http://www.speedrun.com/api/v1/users?name=" + Config.SRCUSER
-	print url
-	id = json.loads(urllib2.urlopen(url).read().decode("utf-8")).get("data")[0].get("id")
-	print id
-	Config.SRCID = id
-	
 def isLoadingComplete(line):
 	if("End of /NAMES list" in line):
 		return False

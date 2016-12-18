@@ -3,10 +3,16 @@ import urllib2
 import Config
 from Dicts import categories
 from Enum import Month
-	
-pbUrl = "http://www.speedrun.com/api/v1/users/" + Config.SRCID + "/personal-bests"
-personalBests = json.loads(urllib2.urlopen(pbUrl).read().decode("utf-8")).get("data")
+
 recordBaseUrl = "http://www.speedrun.com/api/v1/categories/"
+personalBests = {}
+
+def populatePersonalBests(username):
+	url = "http://www.speedrun.com/api/v1/users?name=" + Config.SRCUSER
+	srcid = json.loads(urllib2.urlopen(url).read().decode("utf-8")).get("data")[0].get("id")
+	pbUrl = "http://www.speedrun.com/api/v1/users/" + srcid + "/personal-bests"
+	global personalBests
+	personalBests = json.loads(urllib2.urlopen(pbUrl).read().decode("utf-8")).get("data")
 
 def fetchWRs():
 	wrs = {}
@@ -17,7 +23,6 @@ def fetchWRs():
 		else:
 			recordUrl = recordBaseUrl + categoryCode + "/records"
 			run = json.loads(urllib2.urlopen(recordUrl).read().decode("utf-8")).get("data")[0].get("runs")[0].get("run")
-			userId = run.get("players")[0].get("id")
 			wrs[category] = "The world record is " + parseTime(run.get("times").get("realtime")) + " done by " + getUsernameFromId(run) + " on " + parseDate(run.get("date"))
 	return wrs
 	
@@ -91,3 +96,4 @@ def getPosition(run):
 	return position + suffix
 
 worldRecords = fetchWRs()
+populatePersonalBests(Config.SRCUSER)

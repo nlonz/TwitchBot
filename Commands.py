@@ -2,12 +2,12 @@ import Config
 from Categories import categories
 from Read import getUsername, getMessage
 from Lookup import lookUpPB, lookUpWR
-from Gamble import gamble, lookUpPoints
+from Gamble import gamble, lookUpPoints, pointName
 
 def executeCommand(line):
 	username = getUsername(line)
 	message = getMessage(line)
-	print message
+	print username + ": " + message
 	
 	if "!301" == message:
 		return "The Rareware 301% Race is a race of Banjo-Kazooie 100%, Banjo-Tooie 100%, and Donkey Kong 64 101% all back to back taking place on January 28, 2017. Find out more about it here: http://bombch.us/Bj_W"
@@ -21,7 +21,7 @@ def executeCommand(line):
 	if "!GAMBLE" in message.upper():
 		return gamble(username, message)
 		
-	if "!MODE" in message.upper() and "EMOARBITER" == username.upper():
+	if "!MODE" in message.upper() and Config.CHANNEL.upper() == username.upper():
 		parts = message.split()
 		category = parts[1]
 		if category in categories:
@@ -32,9 +32,9 @@ def executeCommand(line):
 		return lookUpPB(Config.CATEGORY)
 		
 	if "!POINTS" == message.upper():
-		return username + " has " + str(lookUpPoints(username)) + " points."
+		return username + " has " + str(lookUpPoints(username)) + pointName + "."
 		
-	if "!QUIT" == message.upper() and "EMOARBITER" == username.upper():
+	if "!QUIT" == message.upper() and Config.CHANNEL.upper() == username.upper():
 		exit()
 	
 	if "!WR" == message.upper():
