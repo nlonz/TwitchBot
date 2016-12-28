@@ -1,10 +1,10 @@
-import urllib, json, datetime
+import urllib2, json, datetime
+from Config import CHANNEL
 from Gamble import writePointTotals, retrievePointTotals
 
 def getUserList():
-	url = "http://tmi.twitch.tv/group/user/emoarbiter/chatters"
-	response = urllib.urlopen(url)
-	return json.loads(response.read()).get("chatters")
+	url = "http://tmi.twitch.tv/group/user/" + CHANNEL + "/chatters"
+	return json.loads(urllib2.urlopen(url).read().decode("utf-8")).get("chatters")
 
 def updateTotals(user, pointTotals):
 	print user

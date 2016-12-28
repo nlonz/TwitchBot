@@ -1,16 +1,16 @@
 import socket, string, json, urllib2
-import Config
+from Config import HOST, PORT, PASS, NICK, CHANNEL
 
 def init():
 	s = socket.socket()
-	s.connect((Config.HOST, Config.PORT))
-	s.send("PASS " + Config.PASS + "\r\n")
-	s.send("NICK " + Config.NICK + "\r\n")
-	s.send("JOIN #" + Config.CHANNEL + "\r\n")
+	s.connect((HOST, PORT))
+	s.send("PASS " + PASS + "\r\n")
+	s.send("NICK " + NICK + "\r\n")
+	s.send("JOIN #" + CHANNEL + "\r\n")
 	return s
 
 def sendMessage(s, message):
-	message = "PRIVMSG #" + Config.CHANNEL + " :" + message + "\r\n"
+	message = "PRIVMSG #" + CHANNEL + " :" + message + "\r\n"
 	s.send(message)
 	print("Sent: " + message)
 
