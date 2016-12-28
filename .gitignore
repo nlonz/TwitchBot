@@ -1,4 +1,4 @@
 *.pyc
-Config.py
+src.py
 pointTotals.pk1
 ClearPointDatabase.py

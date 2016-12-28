@@ -1,15 +1,16 @@
 import pickle, random
+from Config import LOYALTYPATH
 
 pointName = "dragonflies"
 
 def retrievePointTotals():
-	file = open(r'D:\Dev\EmoArbot\pointTotals.pk1', 'rb')
+	file = open(LOYALTYPATH, 'rb')
 	pointTotals = pickle.load(file)
 	file.close()
 	return pointTotals
 	
 def writePointTotals(pointTotals):
-	file = open(r'D:\Dev\EmoArbot\pointTotals.pk1', 'wb')
+	file = open(LOYALTYPATH, 'wb')
 	pickle.dump(pointTotals, file)
 	file.close()
 	
