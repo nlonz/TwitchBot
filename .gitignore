@@ -1,0 +1,4 @@
+*.pyc
+Config.py
+pointTotals.pk1
+ClearPointDatabase.py
