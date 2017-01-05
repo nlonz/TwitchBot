@@ -25,13 +25,13 @@ def gamble(user, message):
 		
 		roll = random.randrange(0,101)
 		if (user.upper() == "CONNOR75" or user.upper() == "MONTANANINJA"):
-			roll = random.randrange(0,63)
+			roll = random.randrange(0,60)
 		
-		if (roll < 63):
+		if (roll < 60):
 			points -= amount
 			result = user + " rolled a " + str(roll) + " and lost " + str(amount) + " " + pointName + ". " + user + " now has " + str(points) + " " + pointName + "."
 			
-		elif (roll >= 63 and roll < 99):
+		elif (roll >= 60 and roll < 99):
 			points += amount
 			result = user + " rolled a " + str(roll) + " and won " + str(amount) + " " + pointName + ". " + user + " now has " + str(points) + " " + pointName + "."
 		
