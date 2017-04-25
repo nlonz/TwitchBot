@@ -20,22 +20,26 @@ def addLoyalty():
 	pointTotals = retrievePointTotals()
 	allUsers = getUserList()
 	
-	for user in allUsers.get("moderators"):
-		updateTotals(str(user), pointTotals)
+	if allUsers is not None:
+		for user in allUsers.get("moderators"):
+			updateTotals(str(user), pointTotals)
 		
-	for user in allUsers.get("staff"):
-		updateTotals(str(user), pointTotals)
+		for user in allUsers.get("staff"):
+			updateTotals(str(user), pointTotals)
+			
+		for user in allUsers.get("admins"):
+			updateTotals(str(user), pointTotals)
+
+		for user in allUsers.get("global_mods"):
+			updateTotals(str(user), pointTotals)
+			
+		for user in allUsers.get("viewers"):
+			updateTotals(str(user), pointTotals)
+			
+		writePointTotals(pointTotals)
 		
-	for user in allUsers.get("admins"):
-		updateTotals(str(user), pointTotals)
-		
-	for user in allUsers.get("global_mods"):
-		updateTotals(str(user), pointTotals)
-		
-	for user in allUsers.get("viewers"):
-		updateTotals(str(user), pointTotals)
-		
-	writePointTotals(pointTotals)
+	else:
+		addLoyalty()
 
 def addLoyaltyForUser(user):
 	pointTotals = retrievePointTotals()
