@@ -1,5 +1,5 @@
 import socket, string
-from Init import init, joinRoom, sendMessage
+from Init import init, joinRoom
 from Commands import executeCommand
 
 def run():
@@ -18,8 +18,5 @@ def run():
 				break
 			
 			else:
-				result = executeCommand(line)
-				if "No message" != result:
-					sendMessage(openSocket, result)
-					
-run()					
+				executeCommand(openSocket, line)					
+run()
