@@ -11,10 +11,9 @@ from Quote import getQuote
 def executeCommand(openSocket, line):
 	username = getUsername(line)
 	message = getMessage(line)
-	print username + ": " + message
 	
-	if "!301" == message:
-		sendMessage(openSocket, "The Rareware 301% Race is a race of Banjo-Kazooie 100%, Banjo-Tooie 100%, and Donkey Kong 64 101% all back to back taking place on January 28, 2017. Find out more about it here: http://bombch.us/Bj_W")
+	#if "!301" == message:
+	#	sendMessage(openSocket, "The Rareware 301% Race is a race of Banjo-Kazooie 100%, Banjo-Tooie 100%, and Donkey Kong 64 101% all back to back taking place on January 28, 2017. Find out more about it here: http://bombch.us/Bj_W")
 		
 	if "!ABOUT" == message.upper():
 		sendMessage(openSocket, "I am a bot designed by EmoArbiter for use in his Twitch channel. I am written in Python 2.7 and use the speedrun.com REST API for any leaderboard information. Any suggestions for new features and feedback is welcome!")
@@ -25,13 +24,13 @@ def executeCommand(openSocket, line):
 	#if "!GAMBLE" in message.upper():
 	#	return gamble(username, message)
 		
-	if "!MODE" in message.upper() and Config.CHANNEL.upper() == username.upper():
+	if "!MODE" in message.upper() and Config.CHANNEL.upper() == username.upper() and Config.CHANNEL.upper() == "EMOARBITER":
 		parts = message.split()
 		category = parts[1]
 		if category in categories:
 			Config.CATEGORY = parts[1]
 	
-	if "!PB" in message.upper():
+	if "!PB" in message.upper() and Config.CHANNEL.upper() == "EMOARBITER":
 		sendMessage(openSocket, lookUpPB(Config.CATEGORY))
 		
 	#if "!POINTS" == message.upper():
@@ -54,7 +53,10 @@ def executeCommand(openSocket, line):
 		sendMessage(openSocket, "[ " + SlotEmotes.reverse_mapping[int(result[0])] + " ] [ "
 			+ SlotEmotes.reverse_mapping[int(result[1])] + " ] [ " + SlotEmotes.reverse_mapping[int(result[2])] + " ]")
 		if (result[0] == result[1] and result[1] == result[2]):
-			sendMessage(openSocket, "You win")
+			sendMessage(openSocket, "Congratulations! Please cheer801 to redeem your reward!")
 	
-	if "!WR" == message.upper():
+	if "!WR" == message.upper() and Config.CHANNEL.upper() == "EMOARBITER":
 		sendMessage(openSocket, lookUpWR(Config.CATEGORY))
+		
+	if "!YORB" == message.upper():
+		sendMessage(openSocket, "skip")
