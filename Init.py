@@ -1,7 +1,9 @@
 import socket, string, json, urllib2
 from Config import HOST, PORT, PASS, NICK, CHANNEL
 
-def init():
+def init(username):
+	global CHANNEL
+	CHANNEL = username
 	s = socket.socket()
 	s.connect((HOST, PORT))
 	s.send("PASS " + PASS + "\r\n")
