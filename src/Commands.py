@@ -40,9 +40,6 @@ def executeCommand(open_socket, line):
     if "!POINTS" == message.upper():
         send_message(open_socket, username + " has " + str(look_up_points(username)) + " " + point_name + ".")
 
-    if "!QUIT" == message.upper() and Config.CHANNEL.upper() == username.upper():
-        exit()
-
     if "!QUOTE" in message.upper():
         parts = message.split()
         if 1 == len(parts):

@@ -1,24 +1,21 @@
 import socket
 import string
-
-from Config import HOST, PORT, PASS, NICK
-
-CHANNEL = ""
+import Config
 
 
 def init(username):
-    global CHANNEL
-    CHANNEL = username
+    Config.configure()
+    Config.CHANNEL = username
     s = socket.socket()
-    s.connect((HOST, PORT))
-    s.send("PASS " + PASS + "\r\n")
-    s.send("NICK " + NICK + "\r\n")
-    s.send("JOIN #" + CHANNEL + "\r\n")
+    s.connect((Config.HOST, Config.PORT))
+    s.send("PASS " + Config.PASS + "\r\n")
+    s.send("NICK " + Config.NICK + "\r\n")
+    s.send("JOIN #" + Config.CHANNEL + "\r\n")
     return s
 
 
 def send_message(s, message):
-    message = "PRIVMSG #" + CHANNEL + " :" + message + "\r\n"
+    message = "PRIVMSG #" + Config.CHANNEL + " :" + message + "\r\n"
     s.send(message)
     print("Sent: " + message)
 

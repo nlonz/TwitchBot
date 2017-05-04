@@ -1,14 +1,21 @@
 import random
+import Config
 
 
 def load_quotes():
-    f = open(r'/media/sf_D_DRIVE/Dev/EmoArbot/connor75.txt', 'rb')
+    print Config.CHANNEL
+    filename = "/media/sf_D_DRIVE/Dev/EmoArbot/" + Config.CHANNEL + ".txt"
+    try:
+        f = open(filename, 'rb')
+    except IOError:
+        return 'FAIL'
     file_quotes = f.readlines()
     f.close()
     return file_quotes
 
 
 def get_quote(num):
+    quotes = load_quotes()
     if 'rand' == num:
         num = str(random.randrange(1, len(quotes)))
     if num.isdigit():
@@ -16,6 +23,3 @@ def get_quote(num):
         if 0 <= num - 1 < len(quotes):
             return quotes[num - 1]
     return 'FAIL'
-
-
-quotes = load_quotes()
