@@ -1,4 +1,7 @@
 *.pyc
-src.py
+test.py
 pointTotals.pk1
 ClearPointDatabase.py
+*xml
+*iml
+*txt
