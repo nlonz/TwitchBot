@@ -28,13 +28,13 @@ def executeCommand(open_socket, line):
     if "!GAMBLE" in message.upper():
         return gamble(username, message)
 
-    if "!MODE" in message.upper() and Config.CHANNEL.upper() == username.upper() and Config.CHANNEL.upper() == "EMOARBITER":
+    if "!MODE" in message.upper() and Config.CHANNEL.upper() == username.upper() and Config.CHANNEL.upper() == Config.USER.upper():
         parts = message.split()
         category = parts[1]
         if category in categories:
             Config.CATEGORY = parts[1]
 
-    if "!PB" in message.upper() and Config.CHANNEL.upper() == "EMOARBITER":
+    if "!PB" in message.upper() and Config.CHANNEL.upper() == Config.USER.upper():
         send_message(open_socket, look_up_pb(Config.CATEGORY))
 
     if "!POINTS" == message.upper():
@@ -56,7 +56,7 @@ def executeCommand(open_socket, line):
         if result[0] == result[1] and result[1] == result[2]:
             send_message(open_socket, "Congratulations! Please cheer801 to redeem your reward!")
 
-    if "!WR" == message.upper() and Config.CHANNEL.upper() == "EMOARBITER":
+    if "!WR" == message.upper() and Config.CHANNEL.upper() == Config.USER.upper():
         send_message(open_socket, look_up_wr(Config.CATEGORY))
 
     if "!YORB" == message.upper():
