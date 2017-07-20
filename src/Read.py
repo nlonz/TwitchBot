@@ -6,5 +6,5 @@ def get_username(line):
 
 
 def get_message(line):
-    message = string.split(line, ":")[2]
+    message = string.split(line, ":", 2)[2]
     return message[:len(message) - 1]
