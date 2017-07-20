@@ -3,7 +3,6 @@ import Config
 
 
 def load_quotes():
-    print Config.CHANNEL
     filename = "/media/sf_D_DRIVE/Dev/EmoArbot/resources/quotes/" + Config.CHANNEL + ".txt"
     try:
         f = open(filename, 'rb')

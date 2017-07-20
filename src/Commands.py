@@ -1,9 +1,9 @@
 import Config
 from Categories import categories
 from Enum import SlotEmotes
-from Gamble import gamble, look_up_points, point_name
 from Init import send_message
 from Lookup import look_up_pb, look_up_wr
+from Meme import meme
 from Quote import get_quote
 from Read import get_username, get_message
 from Slots import slots
@@ -18,11 +18,30 @@ def executeCommand(open_socket, line):
                      "I am a bot designed by EmoArbiter for use in his Twitch channel. I am written in Python 2.7 and use the speedrun.com REST API for any leaderboard information. Any suggestions "
                      "for new features and feedback is welcome!")
 
-    if "!COMMANDS" == message.upper():
-        send_message(open_socket, "Available commands are !301, !about, !commands, !pb, !points, !wr")
+    if "!DCW" in message.upper():
+        send_message(open_socket, "For information on Delayed Cutscene Warp, read here: https://pastebin.com/3fQuCVB4")
 
-    if "!GAMBLE" in message.upper():
-        send_message(open_socket, gamble(username, message))
+    if "!EDITPASTEBIN" in message.upper() and "KONDITIONER" == username.upper() and "KONDITIONER" == Config.CHANNEL.upper():
+        parts = message.split()
+        if len(parts) >= 2:
+            try:
+                filename = "/media/sf_D_DRIVE/Dev/EmoArbot/resources/kondipastebin.txt"
+                pastebin = open(filename, 'wb')
+                pastebin.write(str(parts[1]))
+                pastebin.close()
+            except IOError:
+                return
+        else:
+            send_message(open_socket, "Put a link here idiot")
+
+    if "!FFM" in message.upper():
+        send_message(open_socket, "For information on Furnace Fun Moves, read here: https://pastebin.com/rNaSUVqK")
+
+    if "!MEME" in message.upper():
+        send_message(open_socket, meme())
+
+    if "!MMM" in message.upper():
+        send_message(open_socket, "For information on Main Menu Mode, read here: https://pastebin.com/13hLcXww")
 
     if "!MODE" in message.upper() and Config.CHANNEL.upper() == username.upper() and Config.CHANNEL.upper() == Config.USER.upper():
         parts = message.split()
@@ -30,11 +49,18 @@ def executeCommand(open_socket, line):
         if category in categories:
             Config.CATEGORY = parts[1]
 
+    if "!PASTEBIN" in message.upper() and "KONDITIONER" == username.upper() and "KONDITIONER" == Config.CHANNEL.upper():
+        try:
+            filename = "/media/sf_D_DRIVE/Dev/EmoArbot/resources/kondipastebin.txt"
+            pastebin = open(filename, 'rb')
+            link = pastebin.readlines()[0]
+            pastebin.close()
+        except IOError:
+            return
+        send_message(open_socket, link)
+
     if "!PB" in message.upper() and Config.CHANNEL.upper() == Config.USER.upper():
         send_message(open_socket, look_up_pb(Config.CATEGORY))
-
-    if "!POINTS" == message.upper():
-        send_message(open_socket, username + " has " + str(look_up_points(username)) + " " + point_name + ".")
 
     if "!QUOTE" in message.upper():
         parts = message.split()
