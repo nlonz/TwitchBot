@@ -3,7 +3,7 @@ import random
 
 from Config import LOYALTYPATH
 
-point_name = "dragonflies"
+point_name = "silver medals"
 
 
 def retrieve_point_totals():
@@ -20,7 +20,7 @@ def write_point_totals(point_totals):
 
 
 def gamble(user, message):
-    if len(message.split()) < 0:
+    if len(message.split()) < 2:
         return "You must gamble something!"
     message_str = str(message.split()[1])
     if message_str.isdigit():

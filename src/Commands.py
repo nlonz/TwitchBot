@@ -13,20 +13,16 @@ def executeCommand(open_socket, line):
     username = get_username(line)
     message = get_message(line)
 
-    if "!301" == message:
-        send_message(open_socket, "The Rareware 301% Race is a race of Banjo-Kazooie 100%, Banjo-Tooie 100%, and Donkey Kong 64 101% all back to back taking place on January 28, 2017. Find out more "
-                                  "about it here: http://bombch.us/Bj_W")
-
     if "!ABOUT" == message.upper():
         send_message(open_socket,
                      "I am a bot designed by EmoArbiter for use in his Twitch channel. I am written in Python 2.7 and use the speedrun.com REST API for any leaderboard information. Any suggestions "
                      "for new features and feedback is welcome!")
 
     if "!COMMANDS" == message.upper():
-        send_message(open_socket, "Available commands are !301, !about, !commands, !pb, !points, !w")
+        send_message(open_socket, "Available commands are !301, !about, !commands, !pb, !points, !wr")
 
     if "!GAMBLE" in message.upper():
-        return gamble(username, message)
+        send_message(open_socket, gamble(username, message))
 
     if "!MODE" in message.upper() and Config.CHANNEL.upper() == username.upper() and Config.CHANNEL.upper() == Config.USER.upper():
         parts = message.split()
