@@ -1,5 +1,6 @@
 import socket
 import string
+import time
 import Config
 
 
@@ -18,6 +19,7 @@ def send_message(s, message):
     message = "PRIVMSG #" + Config.CHANNEL + " :" + message + "\r\n"
     s.send(message)
     print("Sent: " + message)
+    time.sleep(1)
 
 
 def join_room(s):
