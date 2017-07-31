@@ -1,8 +1,9 @@
+import os
 import random
 
 
 def meme():
-    filename = "/media/sf_D_DRIVE/Dev/EmoArbot/resources/memes.txt"
+    filename = os.path.join(os.path.dirname(__file__), "..", "resources", "memes.txt")
     try:
         f = open(filename, 'rb')
     except IOError:

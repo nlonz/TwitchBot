@@ -1,10 +1,11 @@
 import Config
+import os
 from Categories import categories
 from Enum import SlotEmotes
 from Init import send_message
 from Lookup import look_up_pb, look_up_wr
 from Meme import meme
-from Quote import get_quote
+from Quote import get_quote, add_quote
 from Read import get_username, get_message
 from Slots import slots
 
@@ -18,6 +19,13 @@ def executeCommand(open_socket, line):
                      "I am a bot designed by EmoArbiter for use in his Twitch channel. I am written in Python 2.7 and use the speedrun.com REST API for any leaderboard information. Any suggestions "
                      "for new features and feedback is welcome!")
 
+    if "!ADDQUOTE" in message.upper():
+        parts = message.split(" ", 1)
+        if len(parts) >= 2:
+            add_quote(parts[1])
+        else:
+            send_message(open_socket, "Give me a quote to add")
+
     if "!DCW" in message.upper():
         send_message(open_socket, "For information on Delayed Cutscene Warp, read here: https://pastebin.com/3fQuCVB4")
 
@@ -25,7 +33,7 @@ def executeCommand(open_socket, line):
         parts = message.split()
         if len(parts) >= 2:
             try:
-                filename = "/media/sf_D_DRIVE/Dev/EmoArbot/resources/kondipastebin.txt"
+                filename = os.path.join(os.path.dirname(__file__), "..", "resources", "kondipastebin.txt")
                 pastebin = open(filename, 'wb')
                 pastebin.write(str(parts[1]))
                 pastebin.close()
@@ -38,7 +46,9 @@ def executeCommand(open_socket, line):
         send_message(open_socket, "For information on Furnace Fun Moves, read here: https://pastebin.com/rNaSUVqK")
 
     if "!MEME" in message.upper():
-        send_message(open_socket, meme())
+        maymay = meme()
+        if not 'FAIL' == maymay:
+            send_message(open_socket, meme())
 
     if "!MMM" in message.upper():
         send_message(open_socket, "For information on Main Menu Mode, read here: https://pastebin.com/13hLcXww")
@@ -49,9 +59,9 @@ def executeCommand(open_socket, line):
         if category in categories:
             Config.CATEGORY = parts[1]
 
-    if "!PASTEBIN" in message.upper() and "KONDITIONER" == username.upper() and "KONDITIONER" == Config.CHANNEL.upper():
+    if "!PASTEBIN" in message.upper() and "KONDITIONER" == Config.CHANNEL.upper():
         try:
-            filename = "/media/sf_D_DRIVE/Dev/EmoArbot/resources/kondipastebin.txt"
+            filename = os.path.join(os.path.dirname(__file__), "..", "resources", "kondipastebin.txt")
             pastebin = open(filename, 'rb')
             link = pastebin.readlines()[0]
             pastebin.close()
