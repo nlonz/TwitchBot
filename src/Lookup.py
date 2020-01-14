@@ -109,6 +109,7 @@ def get_position(run):
     return position + suffix
 
 
-if Config.CHANNEL == "emoarbiter":
+if Config.CHANNEL == "EmoArbiter":
+    print("mornin")
     worldRecords = fetch_records()
     populate_personal_bests()
