@@ -77,8 +77,8 @@ def run(username):
 
 
 # if __name__ == '__main__':
-#     p1 = Process(target=parent_process, args=("gajbp",))
+#     p1 = Process(target=parent_process, args=("",))
 #     p1.start()
-#     # p2 = Process(target=parent_process, args=("konditioner",))
+#     # p2 = Process(target=parent_process, args=("",))
 #     # p2.start()
-run("gajbp")
+run("")

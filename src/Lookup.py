@@ -9,7 +9,7 @@ personalBests = {}
 
 
 def populate_personal_bests():
-    url = "http://www.speedrun.com/api/v1/users?name=emoarbiter"
+    url = "http://www.speedrun.com/api/v1/users?name=somename"
     srcid = json.loads(urllib2.urlopen(url).read().decode("utf-8")).get("data")[0].get("id")
     pb_url = "http://www.speedrun.com/api/v1/users/" + srcid + "/personal-bests"
     global personalBests
