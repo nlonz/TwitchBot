@@ -9,7 +9,7 @@ personalBests = {}
 
 
 def populate_personal_bests():
-    url = "http://www.speedrun.com/api/v1/users?name=somename"
+    url = "http://www.speedrun.com/api/v1/users?name=" + Config.USER
     srcid = json.loads(urllib2.urlopen(url).read().decode("utf-8")).get("data")[0].get("id")
     pb_url = "http://www.speedrun.com/api/v1/users/" + srcid + "/personal-bests"
     global personalBests
@@ -109,7 +109,6 @@ def get_position(run):
     return position + suffix
 
 
-if Config.CHANNEL == "EmoArbiter":
-    print("mornin")
+if Config.CHANNEL == Config.USER:
     worldRecords = fetch_records()
     populate_personal_bests()
