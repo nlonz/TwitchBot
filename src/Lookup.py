@@ -1,5 +1,5 @@
 import json
-import urllib2
+import urllib.request
 import Config
 from Categories import categories
 from Enum import Month
@@ -9,11 +9,11 @@ personalBests = {}
 
 
 def populate_personal_bests():
-    url = "http://www.speedrun.com/api/v1/users?name=" + Config.USER
-    srcid = json.loads(urllib2.urlopen(url).read().decode("utf-8")).get("data")[0].get("id")
+    url = "http://www.speedrun.com/api/v1/users?name=" + Config.SRCUSER.lower()
+    srcid = json.loads(urllib.request.urlopen(url).read().decode("utf-8")).get("data")[0].get("id")
     pb_url = "http://www.speedrun.com/api/v1/users/" + srcid + "/personal-bests"
     global personalBests
-    personalBests = json.loads(urllib2.urlopen(pb_url).read().decode("utf-8")).get("data")
+    personalBests = json.loads(urllib.request.urlopen(pb_url).read().decode("utf-8")).get("data")
 
 
 def fetch_records():
@@ -24,7 +24,7 @@ def fetch_records():
             return "The world record for this category is not posted on speedrun.com, or I don't know about this category."
         else:
             record_url = recordBaseUrl + category_code + "/records"
-            run = json.loads(urllib2.urlopen(record_url).read().decode("utf-8")).get("data")[0] .get("runs")[0].get("run")
+            run = json.loads(urllib.request.urlopen(record_url).read().decode("utf-8")).get("data")[0] .get("runs")[0].get("run")
             wrs[category] = "The world record is " + parse_time(
                 run.get("times").get("realtime")) + " done by " + get_username_from_id(run) + " on " + parse_date(
                 run.get("date"))
@@ -38,7 +38,7 @@ def look_up_pb(category):
     for run in personalBests:
         if categories[category] == run.get("run").get("category"):
             return "My personal best is " + parse_time(
-                run.get("run").get("times").get("realtime")) + " done on " + parse_date(run.get("run").get("submitted")) + " and is currently " + get_position(run) + " place on the leaderboards"
+                run.get("run").get("times").get("realtime")) + " done on " + parse_date(run.get("run").get("date")) + " and is currently " + get_position(run) + " place on the leaderboards"
 
 
 def look_up_wr(category):
@@ -48,7 +48,7 @@ def look_up_wr(category):
 def get_username_from_id(run):
     user_id = run.get("players")[0].get("id")
     user_name_url = "http://www.speedrun.com/api/v1/users/" + user_id
-    user_name = json.loads(urllib2.urlopen(user_name_url).read().decode("utf-8")).get("data").get("names").get("international")
+    user_name = json.loads(urllib.request.urlopen(user_name_url).read().decode("utf-8")).get("data").get("names").get("international")
     return user_name
 
 
@@ -90,10 +90,12 @@ def get_seconds(time):
 
 
 def parse_date(time):
+    print(time)
     year = time[0:4]
     month = time[5:7]
     day = time[8:10]
-    return Month.reverse_mapping[int(month)] + " " + day + ", " + year
+    print("Year:" + year + "Month: " + month + "Day: " + day)
+    return Month(int(month)).name + " " + day + ", " + year
 
 
 def get_position(run):
@@ -109,6 +111,6 @@ def get_position(run):
     return position + suffix
 
 
-if Config.CHANNEL == Config.USER:
+if Config.CHANNEL == "gajbp":
     worldRecords = fetch_records()
     populate_personal_bests()

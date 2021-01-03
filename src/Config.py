@@ -4,15 +4,13 @@
 
 HOST = "irc.chat.twitch.tv"
 PORT = 6667
-CHANNEL = ""
-# USER = User's Twitch username
-# CATEGORY = "Category you are running. Only useful in the user's channel"
-# NICK = Bot's Twitch username
-# PASS = The bot's IRC password for Twitch chat
-# SRCUSER = User's speedrun.com username
+CHANNEL = "gajbp"
+CATEGORY = "nle"
+NICK = "EmoArbot"
+PASS = "oauth:kxmhzf2o3aymwbe6e3cps1x2s2vtj7"
+SRCUSER = "EmoArbiter"
 # LOYALTYPATH = Path to loyalty database. Only useful in the user's channel
-# CLIENTID = Twitch API Key
-
+CLIENTID = "ndldbbevfmd4lgs7usx0yjmixib3uu"
 
 def configure():
     global CHANNEL

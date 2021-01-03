@@ -1,7 +1,6 @@
 import json
 import string
 import time
-import urllib2
 from multiprocessing import Process
 
 from Commands import executeCommand
@@ -15,8 +14,8 @@ def run(username):
     read_buffer = ""
 
     while True:
-        read_buffer = read_buffer + open_socket.recv(1024)
-        temp = string.split(read_buffer, "\n")
+        read_buffer = read_buffer + open_socket.recv(1024).decode('utf-8')
+        temp = read_buffer.split("\n")
         read_buffer = temp.pop()
 
         for line in temp:
@@ -77,8 +76,8 @@ def run(username):
 
 
 # if __name__ == '__main__':
-#     p1 = Process(target=parent_process, args=("",))
+#     p1 = Process(target=parent_process, args=("gajbp",))
 #     p1.start()
-#     # p2 = Process(target=parent_process, args=("",))
+#     # p2 = Process(target=parent_process, args=("konditioner",))
 #     # p2.start()
-run("")
+run("gajbp")

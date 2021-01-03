@@ -9,15 +9,15 @@ def init(username):
     Config.CHANNEL = username
     s = socket.socket()
     s.connect((Config.HOST, Config.PORT))
-    s.send("PASS " + Config.PASS + "\r\n")
-    s.send("NICK " + Config.NICK + "\r\n")
-    s.send("JOIN #" + Config.CHANNEL + "\r\n")
+    s.send(("PASS " + Config.PASS + "\r\n").encode())
+    s.send(("NICK " + Config.NICK + "\r\n").encode())
+    s.send(("JOIN #" + Config.CHANNEL + "\r\n").encode())
     return s
 
 
 def send_message(s, message):
     message = "PRIVMSG #" + Config.CHANNEL + " :" + message + "\r\n"
-    s.send(message)
+    s.send(message.encode('iso-8859-15'))
     print("Sent: " + message)
     time.sleep(1)
 
@@ -26,8 +26,8 @@ def join_room(s):
     read_buffer = ""
     loading = True
     while loading:
-        read_buffer = read_buffer + s.recv(1024)
-        temp = string.split(read_buffer, "\n")
+        read_buffer = read_buffer + s.recv(1024).decode('utf-8')
+        temp = read_buffer.split("\n")
         read_buffer = temp.pop()
 
         for line in temp:
